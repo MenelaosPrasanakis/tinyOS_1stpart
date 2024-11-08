@@ -119,8 +119,8 @@ typedef struct thread_control_block {
 
 	enum SCHED_CAUSE curr_cause; /**< @brief The endcause for the current time-slice */
 	enum SCHED_CAUSE last_cause; /**< @brief The endcause for the last time-slice */
-
-#ifndef NVALGRIND
+  int priority; 
+	#ifndef NVALGRIND
 	unsigned valgrind_stack_id; /**< @brief Valgrind helper for stacks. 
 
 	  This is useful in order to register the thread stack to the valgrind memory profiler. 
@@ -260,6 +260,7 @@ void sleep_releasing(Thread_state newstate, Mutex* mx, enum SCHED_CAUSE cause, T
   it will renew the quantum for the current thread.
  */
 void yield(enum SCHED_CAUSE cause);
+#define  CALLS 1000
 
 /**
   @brief Enter the scheduler.
